@@ -17,7 +17,7 @@ class Id
             throw new InvalidArgumentException('Id cannot be empty.');
         }
 
-        $this->value = $value;
+        $this->value = mb_strtolower($value);
     }
 
     public static function generate(): self
