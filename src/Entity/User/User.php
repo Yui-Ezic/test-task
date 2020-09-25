@@ -33,7 +33,7 @@ class User
      */
     private string $passwordHash;
 
-    private function __construct(Id $id, Name $name, Email $email, string $passwordHash)
+    public function __construct(Id $id, Name $name, Email $email, string $passwordHash)
     {
         $this->id = $id;
         $this->name = $name;
@@ -55,6 +55,11 @@ class User
     public function changePasswordHash($passwordHash): void
     {
         $this->passwordHash = $passwordHash;
+    }
+
+    public function getId(): Id
+    {
+        return $this->id;
     }
 
     public function getName(): Name
