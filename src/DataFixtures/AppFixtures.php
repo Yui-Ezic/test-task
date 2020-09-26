@@ -6,7 +6,7 @@ use App\Entity\User\Email;
 use App\Entity\User\Id;
 use App\Entity\User\Name;
 use App\Entity\User\User;
-use App\Serrvice\User\PasswordHasher;
+use App\Service\User\PasswordHasher;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;

@@ -4,6 +4,7 @@
 namespace App\Repository\User;
 
 
+use App\Entity\User\Email;
 use App\Entity\User\Id;
 use App\Entity\User\User;
 use App\Repository\EntityNotFoundException;
@@ -40,5 +41,19 @@ class DoctrineUserRepository implements UserRepository
     public function remove(User $user): void
     {
         $this->em->remove($user);
+    }
+
+    public function getAll(): array
+    {
+        return $this->repo->findAll();
+    }
+
+    public function hasByEmail(Email $email): bool
+    {
+        return $this->repo->createQueryBuilder('t')
+            ->select('COUNT(t.id)')
+            ->andWhere('t.email = :email')
+            ->setParameter(':email', $email->getValue())
+            ->getQuery()->getSingleScalarResult() > 0;
     }
 }

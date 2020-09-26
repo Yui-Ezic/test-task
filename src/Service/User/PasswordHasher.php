@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Serrvice\User;
+namespace App\Service\User;
 
 
 use RuntimeException;
