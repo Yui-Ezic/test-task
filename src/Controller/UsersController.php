@@ -21,6 +21,8 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class UsersController
 {
+    private const PER_PAGE = 10;
+
     /**
      * @var UserRepository
      */
@@ -33,15 +35,27 @@ class UsersController
 
     /**
      * @Route("", name="index", methods={"GET"})
+     * @param Request $request
      * @return Response
      */
-    public function index(): Response
+    public function index(Request $request): Response
     {
-        $users = $this->repository->getAll();
+        $users = $this->repository->getAllPaginated(
+            $request->query->getInt('page', 1),
+            $request->query->getInt('per_page', self::PER_PAGE)
+        );
 
         $response['items'] = array_map(function (User $user) {
             return $this->convertUserToArray($user);
-        }, $users);
+        }, (array)$users->getItems());
+
+        $response['pagination'] = [
+            'count' => $users->count(),
+            'total' => $users->getTotalItemCount(),
+            'per_page' => $users->getItemNumberPerPage(),
+            'page' => $users->getCurrentPageNumber(),
+            'pages' => ceil($users->getTotalItemCount() / $users->getItemNumberPerPage()),
+        ];
 
         return new JsonResponse($response);
     }

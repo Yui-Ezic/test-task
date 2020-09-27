@@ -23,6 +23,7 @@ class IndexTest extends ApiTestCase
         self::assertArrayHasKey('items', $data);
         self::assertIsArray($data['items']);
         self::assertNotEmpty($data['items']);
+        self::assertArrayHasKey('pagination', $data);
 
         $user = $data['items'][0];
         self::assertArrayHasKey('id', $user);
@@ -36,5 +37,14 @@ class IndexTest extends ApiTestCase
         self::assertArrayHasKey('email', $user);
 
         self::assertArrayNotHasKey('password_hash', $user);
+
+        $pagination = $data['pagination'];
+        self::assertArrayHasKey('total', $pagination);
+        self::assertArrayHasKey('count', $pagination);
+        self::assertArrayHasKey('per_page', $pagination);
+        self::assertArrayHasKey('page', $pagination);
+        self::assertArrayHasKey('pages', $pagination);
+
+        self::assertCount($pagination['count'], $data['items']);
     }
 }

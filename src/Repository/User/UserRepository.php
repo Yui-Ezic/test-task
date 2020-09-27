@@ -8,6 +8,7 @@ use App\Entity\User\Email;
 use App\Entity\User\Id;
 use App\Entity\User\User;
 use App\Repository\EntityNotFoundException;
+use Knp\Component\Pager\Pagination\PaginationInterface;
 
 interface UserRepository
 {
@@ -28,4 +29,6 @@ interface UserRepository
     public function getAll(): array;
 
     public function hasByEmail(Email $email): bool;
+
+    public function getAllPaginated(int $page, int $size): PaginationInterface;
 }
