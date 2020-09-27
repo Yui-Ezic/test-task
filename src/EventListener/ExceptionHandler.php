@@ -50,7 +50,7 @@ class ExceptionHandler implements EventSubscriberInterface
                     'status' => Response::HTTP_BAD_REQUEST,
                     'message' => $throwable->getMessage()
                 ]
-            ]);
+            ], Response::HTTP_BAD_REQUEST);
         }
 
         if ($throwable instanceof EntityNotFoundException) {

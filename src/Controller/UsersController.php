@@ -73,9 +73,10 @@ class UsersController
 
         $command = new Create\Command($firstName, $lastName, $email, $password);
 
-        $handler->handle($command);
+        $id = $handler->handle($command);
+        $user = $this->repository->get($id);
 
-        return new JsonResponse(['success' => true], Response::HTTP_CREATED);
+        return new JsonResponse($this->convertUserToArray($user), Response::HTTP_CREATED);
     }
 
     /**

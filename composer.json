@@ -22,6 +22,7 @@
         "doctrine/doctrine-fixtures-bundle": "^3.3",
         "fzaninotto/faker": "^1.9",
         "roave/security-advisories": "dev-master",
+        "symfony/browser-kit": "5.1.*",
         "symfony/phpunit-bridge": "^5.1"
     },
     "config": {

@@ -26,7 +26,7 @@ class Handler
         $this->passwordHasher = $passwordHasher;
     }
 
-    public function handle(Command $command): void
+    public function handle(Command $command): Id
     {
         $email = new Email($command->email);
 
@@ -44,5 +44,7 @@ class Handler
         $this->repository->add($user);
 
         $this->flusher->flush();
+
+        return $user->getId();
     }
 }

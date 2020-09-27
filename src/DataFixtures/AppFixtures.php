@@ -13,6 +13,11 @@ use Faker\Factory;
 
 class AppFixtures extends Fixture
 {
+    private const USER_ID = '00000000-0000-0000-0000-000000000001';
+    private const USER_EMAIL = 'user@app.test';
+    private const USER_FIRST_NAME = 'Augustus';
+    private const USER_LAST_NAME = 'Crooks';
+
     /**
      * @var PasswordHasher
      */
@@ -28,6 +33,15 @@ class AppFixtures extends Fixture
         $faker = Factory::create();
         $passwordHash = $this->passwordHasher->hash('password');
 
+        // User with static data
+        $manager->persist(new User(
+            new Id(self::USER_ID),
+            new Name(self::USER_FIRST_NAME, self::USER_LAST_NAME),
+            new Email(self::USER_EMAIL),
+            $passwordHash
+        ));
+
+        // Random users
         for ($i = 0; $i < 10; $i++) {
             $user = new User(
                 Id::generate(),
@@ -40,5 +54,17 @@ class AppFixtures extends Fixture
         }
 
         $manager->flush();
+    }
+
+    public static function getUser(): array
+    {
+        return [
+            'id' => self::USER_ID,
+            'name' => [
+                'first' => self::USER_FIRST_NAME,
+                'last' => self::USER_LAST_NAME
+            ],
+            'email' => self::USER_EMAIL
+        ];
     }
 }

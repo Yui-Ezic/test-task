@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Entity\User;
+namespace App\Tests\Unit\Entity\User;
 
 use App\Entity\User\Id;
 use InvalidArgumentException;
